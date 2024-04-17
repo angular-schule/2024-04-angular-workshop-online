@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Book } from '../shared/book';
 
 @Component({
@@ -11,5 +11,5 @@ import { Book } from '../shared/book';
 export class BookComponent {
   // hier fließen Daten hinein von der Elternkomponente
   // von oben nach unten
-  @Input() book?: Book;
+  @Input({ required: true }) book?: Book;
 }
