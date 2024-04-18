@@ -8,11 +8,27 @@ export class BookRatingService {
 
   constructor() { }
 
+  // Pure Function
+  // - keine Seiteneffekte
+  // - deterministisch: immer gleiche Ausgaben für gleiche Eingaben
+  // - nur Eingabewerte verarbeiten
   rateUp(book: Book): Book {
-    return book; // TODO
+    // Early Exit / Guard
+    if (book.rating >= 5) {
+      return book;
+    }
+
+    return {
+      ...book,
+      rating: book.rating + 1
+    };
   }
 
   rateDown(book: Book): Book {
-    return book; // TODO
+    return {
+      ...book,
+      rating: Math.max(1, book.rating - 1)
+      // rating: book.rating > 1 ? book.rating - 1 : 1
+    };
   }
 }
