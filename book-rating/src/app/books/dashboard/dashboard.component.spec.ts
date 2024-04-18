@@ -1,14 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
+import { Book } from '../shared/book';
+import { BookRatingService } from '../shared/book-rating.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async () => {
+    const ratingMock = {
+      rateUp: (b: Book) => b,
+      rateDown: (b: Book) => b,
+    };
+
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent]
+      imports: [DashboardComponent],
+      providers: [
+        // Abhängigkeit ersetzen:
+        // immer wenn BRS angefordert wird, wird stattdessen ratingMock ausgeliefert
+        { provide: BookRatingService, useValue: ratingMock }
+      ]
     })
     .compileComponents();
 
@@ -25,4 +37,6 @@ describe('DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call service.rateUp for doRateUp() ', () => {});
 });
