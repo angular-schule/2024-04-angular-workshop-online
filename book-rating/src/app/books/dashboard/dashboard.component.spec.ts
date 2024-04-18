@@ -11,9 +11,14 @@ describe('DashboardComponent', () => {
       imports: [DashboardComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(DashboardComponent);
+    // TS-Klasseninstanz
     component = fixture.componentInstance;
+
+    // DOM-Element
+    // fixture.nativeElement
+
     fixture.detectChanges();
   });
 
