@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { DashboardComponent } from './books/dashboard/dashboard.component';
 import { Observable, Observer, Subscriber } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { Observable, Observer, Subscriber } from 'rxjs';
 export class AppComponent {
   title = 'Book Rating!';
 
-  constructor() {
+  constructor(private router: Router) {
 
     function producer(sub: Subscriber<number>) {
       const result = Math.random();

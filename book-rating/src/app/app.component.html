@@ -1,4 +1,22 @@
 <div class="container">
   <h1>{{ title }}</h1>
-  <app-dashboard></app-dashboard>
+
+  <router-outlet></router-outlet>
 </div>
+
+
+<!--
+  TODO:
+  - Root-URL
+    - Weiterleitung
+    - Komponente für die Startseite
+  - Links
+    - BookC => Detailseite
+    - Detailseite => Dashboard
+  - Fehlerseite für unbekannte Routen
+  
+  - Detailseite
+    - ISBN aus der URL lesen
+    - HTTP: Buch abrufen
+    - Anzeigen
+-->
