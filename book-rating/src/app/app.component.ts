@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { DashboardComponent } from './books/dashboard/dashboard.component';
 import { Observable, Observer, Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   // Dinge, die im Template genutzt werden sollen
-  imports: [RouterOutlet, DashboardComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'Book Rating!';
 
-  constructor(private router: Router) {
+  constructor() {
 
     function producer(sub: Subscriber<number>) {
       const result = Math.random();
