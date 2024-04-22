@@ -30,15 +30,6 @@ export class BookCreateComponent {
     price: new FormControl(0, {
       nonNullable: true,
       validators: []
-    }),
-    address: new FormGroup({
-      city: new FormControl('', { nonNullable: true }),
-      plz: new FormControl('', { nonNullable: true }),
-    }),
-    authors: new FormArray([
-      new FormControl('', { nonNullable: true }),
-      new FormControl('', { nonNullable: true }),
-      new FormControl('', { nonNullable: true }),
-    ])
+    })
   });
 }
