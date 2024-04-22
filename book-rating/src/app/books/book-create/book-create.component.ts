@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-book-create',
@@ -13,11 +13,19 @@ export class BookCreateComponent {
   bookForm = new FormGroup({
     isbn: new FormControl('', {
       nonNullable: true,
-      validators: []
+      validators: [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(13),
+        Validators.pattern(/^[0-9]*$/)
+      ]
     }),
     title: new FormControl('', {
       nonNullable: true,
-      validators: []
+      validators: [
+        Validators.required,
+        Validators.maxLength(80)
+      ]
     }),
     description: new FormControl('', {
       nonNullable: true,
@@ -25,11 +33,18 @@ export class BookCreateComponent {
     }),
     rating: new FormControl(1, {
       nonNullable: true,
-      validators: []
+      validators: [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5),
+      ]
     }),
     price: new FormControl(0, {
       nonNullable: true,
-      validators: []
+      validators: [
+        Validators.required,
+        Validators.min(0)
+      ]
     })
   });
 }
