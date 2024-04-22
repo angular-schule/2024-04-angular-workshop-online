@@ -22,8 +22,9 @@ export class BookComponent {
   // hier können Daten zur Elternkomponente fließen
   // von unten nach oben
   @Output() rateUp = new EventEmitter<Book>();
-  // rateUp = output<Book>();
   @Output() rateDown = new EventEmitter<Book>();
+  @Output() delete = new EventEmitter<Book>();
+  // rateUp = output<Book>();
   // @Output() rate = new EventEmitter<{ diff: number, book: Book }>();
 
   doRateUp() {
@@ -32,5 +33,11 @@ export class BookComponent {
 
   doRateDown() {
     this.rateDown.emit(this.book);
+  }
+
+  doDelete() {
+    if (confirm('Buch löschen?')) {
+      this.delete.emit(this.book);
+    }
   }
 }
