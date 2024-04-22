@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { BookStoreService } from '../shared/book-store.service';
+import { Book } from '../shared/book';
 
 @Component({
   selector: 'app-book-details',
@@ -10,6 +12,10 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class BookDetailsComponent {
   private route = inject(ActivatedRoute);
+  private bs = inject(BookStoreService);
+
+  book?: Book;
+  isbn?: string;
 
   constructor() {
     // PULL
@@ -17,9 +23,18 @@ export class BookDetailsComponent {
     // console.log(isbn);
 
     // PUSH
+
+    // AUFGABE:
+    // mit der ISBN …
+    // … Buch abrufen (HTTP / BSS)
+    // Anzeige
+
+    // TODO: verschachtelte Subscriptions vermeiden
     this.route.paramMap.subscribe(params => {
-      const isbn = params.get('isbn');
-      console.log(isbn);
+      const isbn = params.get('isbn')!; // Non-Null Assertion, bitte vorsichtig verwenden
+      this.bs.getSingle(isbn).subscribe(book => {
+        this.book = book;
+      });
     });
   }
 }
