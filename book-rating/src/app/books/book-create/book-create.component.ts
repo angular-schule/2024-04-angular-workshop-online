@@ -48,6 +48,10 @@ export class BookCreateComponent {
     })
   });
 
+  submitForm() {
+    // TODO
+  }
+
   isInvalid(controlName: string): boolean {
     const control = this.bookForm.get(controlName);
     if (!control) {
