@@ -47,4 +47,30 @@ export class BookCreateComponent {
       ]
     })
   });
+
+  isInvalid(controlName: string): boolean {
+    const control = this.bookForm.get(controlName);
+    if (!control) {
+      return false;
+    }
+
+    return control.invalid && control.touched;
+  }
+
+  // Alternative mit besserer Typisierung
+  // "Bilde einen Union Type aller Schlüssel des Typen von bookForm.controls"
+  isInvalidX(controlName: keyof typeof this.bookForm.controls): boolean {
+    const control = this.bookForm.controls[controlName];
+    return control.invalid && control.touched;
+  }
+
+  // AUFGABE: Diese Methode implementieren
+  hasError(controlName: string, errorCode: string): boolean {
+    const control = this.bookForm.get(controlName);
+    if (!control) {
+      return false;
+    }
+
+    return control.hasError(errorCode) && control.touched;
+  }
 }
