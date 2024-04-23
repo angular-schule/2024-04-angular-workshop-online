@@ -8,6 +8,12 @@
     @if (hasError('isbn', 'required')) {<div class="feedback-error">Die ISBN muss angegeben werden.</div>}
     @if (hasError('isbn', 'pattern')) {<div class="feedback-error">Die ISBN hat das falsche Format.</div>}
 
+    <!-- AUSBLICK: Komponente zur Fehlerbehandlung -->
+    <!--<app-form-errors
+      controlName="isbn"
+      [messages]="{ required: 'MUSS ANGEGEBENWERDEN', fancFooError: 'Fancy Foo Error' }">
+    </app-form-errors>-->
+
     <pre>{{ bookForm.controls.isbn.errors | json }}</pre>
   </div>
 
@@ -31,7 +37,8 @@
     <input type="number" class="form-control" id="ratingInput" formControlName="rating">
   </div>
 
-  <button type="submit" class="btn-green">Abschicken</button>
+  <button type="submit" class="btn-green"
+    [disabled]="bookForm.invalid">Abschicken</button>
 
 </form>
 

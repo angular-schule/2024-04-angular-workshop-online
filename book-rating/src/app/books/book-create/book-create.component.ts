@@ -1,6 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Book } from '../shared/book';
+import { Router } from '@angular/router';
+import { BookStoreService } from '../shared/book-store.service';
 
 @Component({
   selector: 'app-book-create',
@@ -10,6 +13,10 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
   styleUrl: './book-create.component.scss'
 })
 export class BookCreateComponent {
+
+  private router = inject(Router);
+  private bs = inject(BookStoreService);
+
   bookForm = new FormGroup({
     isbn: new FormControl('', {
       nonNullable: true,
@@ -49,7 +56,23 @@ export class BookCreateComponent {
   });
 
   submitForm() {
-    // TODO
+
+
+    // Werte aus dem Formular => Buch
+    const newBook: Book = this.bookForm.getRawValue();
+
+    this.bs.create(newBook).subscribe((receivedBook) => {
+      this.router.navigate(['/books', receivedBook.isbn]);
+      // this.router.navigateByUrl('/books');
+    });
+
+
+
+    // HTTP: Buch anlegen
+    // bei Erfolg:
+      // - navigieren, z. B. zum Dashboard oder Detailseite
+      // - Reset
+      // - Nachricht anzeigen
   }
 
   isInvalid(controlName: string): boolean {
