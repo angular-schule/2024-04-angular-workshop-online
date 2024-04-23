@@ -15,7 +15,6 @@ export class BookDetailsComponent {
   private bs = inject(BookStoreService);
 
   book?: Book;
-  isbn?: string;
 
   constructor() {
     // PULL
