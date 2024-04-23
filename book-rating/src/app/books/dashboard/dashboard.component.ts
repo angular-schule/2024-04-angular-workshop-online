@@ -4,16 +4,20 @@ import { BookComponent } from '../book/book.component';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [BookComponent],
+  imports: [BookComponent, DatePipe],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
   books: Book[] = [];
+
+  d = Date.now();
+  interval = setInterval(() => this.d = Date.now(), 1000);
 
   // private rs = inject(BookRatingService);
 
@@ -57,5 +61,9 @@ export class DashboardComponent {
       }
     });
 
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 }
