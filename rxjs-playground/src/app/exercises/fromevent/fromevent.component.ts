@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { fromEvent, map, startWith, debounceTime } from 'rxjs';
+import { fromEvent, map, startWith, debounceTime, tap } from 'rxjs';
 
 @Component({
   templateUrl: './fromevent.component.html',

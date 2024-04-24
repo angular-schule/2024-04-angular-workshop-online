@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subject, ReplaySubject, timer, Subscription, takeWhile, takeUntil } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, ReplaySubject, timer, Subscription, takeWhile, takeUntil, tap } from 'rxjs';
 import { HistoryComponent } from '../../shared/history/history.component';
 
 @Component({
@@ -27,7 +28,8 @@ export class UnsubscribeComponent implements OnDestroy {
     const interval$ = timer(0, 1000);
 
     interval$.pipe(
-      takeUntil(this.destroy$)
+      // takeUntil(this.destroy$),
+      takeUntilDestroyed()
     ).subscribe({
       next: e => this.log(e),
       error: err => this.log('❌ ERROR: ' + err),

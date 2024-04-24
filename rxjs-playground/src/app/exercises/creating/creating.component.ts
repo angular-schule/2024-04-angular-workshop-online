@@ -43,6 +43,8 @@ export class CreatingComponent {
 
     /******************************/
 
+    // Producer: generiert Daten und spielt sie an Subscriber aus
+    // Subscriber: hört zu, wird aus dem von außen übergebenen Observer erzeugt
     function producer(sub: Subscriber<number>) {
       const result = Math.random();
       sub.next(result);
@@ -56,7 +58,8 @@ export class CreatingComponent {
       }, 4000)
       const timer3 = setTimeout(() => { sub.complete(); }, 6000)
 
-      // Teardown Logic
+      // Teardown Logic: wird ausgeführt, wenn von außen unsubscribet wird
+      // geeignet für Aufräumarbeiten
       return () => {
         clearInterval(timer1);
         clearInterval(timer2);
@@ -64,6 +67,7 @@ export class CreatingComponent {
       };
     }
 
+    // Observer: hört von außen zu
     const obs: Observer<number> = {
       next: (e: number) => console.log(e),
       error: (err: any) => console.error(err),
@@ -72,10 +76,18 @@ export class CreatingComponent {
 
     // producer(obs);
 
+    // Observable: vermittelt zwischen Producer und Observer
     const myObs$ = new Observable(producer);
-    /*const subscription = myObs$.subscribe(obs);
+    /*const subscription = myObs$.subscribe(obs);*/
 
-    setTimeout(() => {
+
+    const myObs2$ = new Observable<number>(sub => {
+      sub.next(1);
+      sub.next(5);
+      sub.complete();
+    });
+
+    /*setTimeout(() => {
       console.log('UNSUBSCRIBE')
       subscription.unsubscribe()
     }, 3000);*/

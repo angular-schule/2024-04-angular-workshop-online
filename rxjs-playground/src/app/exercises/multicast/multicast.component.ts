@@ -32,6 +32,11 @@ export class MulticastComponent implements OnDestroy {
     this.measureValues$ = new ReplaySubject(5);
     this.mvs.getValues().subscribe(this.measureValues$);
 
+    setTimeout(() => {
+      console.log('COMPLETE');
+      this.measureValues$.complete();
+    }, 10000)
+
 
     /**************!!**************/
 
