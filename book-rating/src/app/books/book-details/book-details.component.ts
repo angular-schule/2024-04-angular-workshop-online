@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
-import { Observable, filter, map, switchMap } from 'rxjs';
+import { Observable, filter, map, switchMap, tap, timer } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
@@ -18,10 +19,12 @@ export class BookDetailsComponent {
 
   book$: Observable<Book>;
 
-  /*book2$ = this.route.paramMap.pipe(
+  bookk = toSignal(this.route.paramMap.pipe(
     map(params => params.get('isbn')!),
     switchMap(isbn => this.bs.getSingle(isbn))
-  );*/
+  ));
+
+  // interval = toSignal(timer(0, 1000).pipe(tap(e => console.log(e))));
 
   constructor() {
     // PULL
