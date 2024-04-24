@@ -14,7 +14,7 @@ export class BookStoreService {
   constructor() { }
 
   getAll(): Observable<Book[]> {
-    return this.http.get<Book[]>(this.apiUrl + '/books');
+    return this.http.get<Book[]>(this.apiUrl + '/booksX');
   }
 
   getSingle(isbn: string): Observable<Book> {

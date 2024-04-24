@@ -5,6 +5,10 @@ import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { BookActions } from '../store/book.actions';
+import { map } from 'rxjs';
+import { selectBooks } from '../store/book.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,10 +25,18 @@ export class DashboardComponent {
 
   // private rs = inject(BookRatingService);
 
-  constructor(private rs: BookRatingService, private bs: BookStoreService) {
-    this.bs.getAll().subscribe(books => {
+  constructor(private rs: BookRatingService, private bs: BookStoreService, private store: Store) {
+    /*this.bs.getAll().subscribe(books => {
+      this.books = books;
+    });*/
+
+    this.store.select(selectBooks).subscribe(books => {
       this.books = books;
     });
+
+    // const books = this.store.selectSignal(selectBooks);
+
+    this.store.dispatch(BookActions.loadBooks());
   }
 
   doRateUp(book: Book) {
