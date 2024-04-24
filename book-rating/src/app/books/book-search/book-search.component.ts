@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, filter, switchMap } from 'rxjs';
+import { debounceTime, filter, of, switchMap } from 'rxjs';
 import { BookStoreService } from '../shared/book-store.service';
 import { AsyncPipe } from '@angular/common';
 
@@ -17,8 +17,15 @@ export class BookSearchComponent {
   private bs = inject(BookStoreService);
 
   searchResult$ = this.searchControl.valueChanges.pipe(
-    filter(term => term.length >= 3),
+    // filter(term => term.length >= 3),
     debounceTime(200),
-    switchMap(term => this.bs.search(term))
+    switchMap(term => {
+      if (term.length >= 3) {
+        return this.bs.search(term)
+      } else {
+        return of([]);
+      }
+    }),
+    // switchMap(term => term.length >= 3 ? this.bs.search(term) : of([]))
   );
 }
