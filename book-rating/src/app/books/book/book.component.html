@@ -12,9 +12,11 @@
       <p>{{ book.description }}</p>
       <p>Preis: {{ book.price | currency:'EUR' }}</p>
 
-      <button class="btn btn-green" (click)="doRateUp()" [disabled]="book.rating >= maxRating"> + </button>
-      <button class="btn btn-red" (click)="doRateDown()" [disabled]="book.rating <= minRating"> – </button>
-      <button class="btn btn-yellow" (click)="doDelete()">Löschen</button>
+      @if (!hideRatingControls) {
+        <button class="btn btn-green" (click)="doRateUp()" [disabled]="book.rating >= maxRating"> + </button>
+        <button class="btn btn-red" (click)="doRateDown()" [disabled]="book.rating <= minRating"> – </button>
+        <button class="btn btn-yellow" (click)="doDelete()">Löschen</button>
+      }
 
       <a [routerLink]="['/books', book.isbn]">Details</a>
 
