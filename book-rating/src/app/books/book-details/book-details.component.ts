@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BookStoreService } from '../shared/book-store.service';
 import { Book } from '../shared/book';
-import { Observable, map, switchMap } from 'rxjs';
+import { Observable, filter, map, switchMap } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
@@ -30,8 +30,9 @@ export class BookDetailsComponent {
 
     // PUSH
     this.book$ = this.route.paramMap.pipe(
-      map(params => params.get('isbn')!),
-      switchMap(isbn => this.bs.getSingle(isbn))
+      map(params => params.get('isbn')),
+      filter((isbn): isbn is string => !!isbn),
+      switchMap(isbn => this.bs.getSingle(isbn)),
     );
 
   }
